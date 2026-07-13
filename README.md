@@ -47,11 +47,21 @@ pip install -r requirements.txt
 Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
 
 ```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
+🐾 --- PawPal+ CLI Demo Setup --- 🐾
+
+Created owner 'Hardika' with pets: Max (Golden Retriever) and Luna (Siamese Cat).
+Added 4 total tasks across all pets.
+
+📋 Today's Master Chronological Schedule:
+---------------------------------------------
+ [⏳] 08:00 — Morning Feeding (15 min) [Priority: High]
+ [⏳] 12:00 — Luna Midday Meds (5 min) [Priority: Medium]
+ [⏳] 12:00 — Afternoon Grooming (20 min) [Priority: Low]
+ [⏳] 18:00 — Evening Walk (30 min) [Priority: High]
+---------------------------------------------
+
+⚠️  Running System Conflict Check...
+  [WARNING] Conflict detected at 12:00: 'Afternoon Grooming' overlaps with 'Luna Midday Meds'
 ```
 
 ## 🧪 Testing PawPal+
