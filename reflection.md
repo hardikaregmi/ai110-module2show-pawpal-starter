@@ -5,12 +5,18 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+My initial design centers around four primary classes, separating data storage from scheduling execution.
 - What classes did you include, and what responsibilities did you assign to each?
+Owner: Tracks user information and acts as a container managing multiple pets.
+Pet: Holds individual pet profiles (name, breed, age) and maintains their specific list of daily tasks.
+Task: A simple data object representing a care activity, storing critical tracking properties like description, duration, and priority level.
+Scheduler: The operational engine of the app. It retrieves tasks across all pets, resolves scheduling logic, sorts items by priority, and ensures everything fits within given time limits.
 
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+N/A - Currently in the initial design phase. No structural changes made to the skeleton yet.
 
 ---
 
