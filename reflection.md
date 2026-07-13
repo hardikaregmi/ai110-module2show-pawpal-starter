@@ -25,13 +25,19 @@ N/A - Currently in the initial design phase. No structural changes made to the s
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+The scheduler primarily considers two core constraints: Time (the specific `HH:MM` timestamp assigned to a care task) and Priority (`High`, `Medium`, or `Low`). It uses the time constraint to strictly sort the daily itinerary chronologically and flag exact scheduling conflicts, while the priority level helps the owner visually assess which tasks take precedence during a busy day.
+
 - How did you decide which constraints mattered most?
+Time was designated as the absolute primary constraint because a pet schedule is fundamentally a timeline. Without chronological structure, an owner cannot easily plan their day or ensure time-sensitive tasks (like medication or feeding routines) happen when they are supposed to. Priority was chosen as the secondary constraint to give the owner immediate visibility into non-negotiable tasks if their schedule becomes overcrowded.
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+While designing the Scheduler engine, a deliberate tradeoff was made to keep the conflict detection logic lightweight. The system currently flags collisions based on exact time matches (e.g., two tasks sharing the same starting hour and minute string). 
 
+- Why is that tradeoff reasonable for this scenario?
+The Benefit: This approach is computationally efficient ($O(N)$ runtime lookup via dictionary keys) and provides clear, non-blocking warning strings to the user without crashing the application state or locking the UI thread.
+The Limitation: It does not account for overlapping durations (e.g., a 45-minute walk starting at 08:00 would not mathematically block a second task scheduled for 08:15). In a future production iteration, parsing the times into true datetime objects to check interval overlaps ($[\text{start}, \text{start} + \text{duration}]$) would provide more robust coverage.
 ---
 
 ## 3. AI Collaboration
