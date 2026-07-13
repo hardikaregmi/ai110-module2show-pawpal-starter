@@ -20,7 +20,7 @@ def test_task_addition():
     assert pet.tasks[0].description == "Morning Feeding"
 
 def test_scheduler_sorting():
-    """Verify tasks are returned in strict chronological order regardless of addition sequence."""
+    """Verify tasks are returned in strict chronological order regardless of insertion order."""
     scheduler = Scheduler()
     task_late = Task(description="Evening Walk", duration="30 min", priority="High", time="18:00")
     task_early = Task(description="Morning Feeding", duration="15 min", priority="High", time="08:00")
@@ -42,7 +42,7 @@ def test_conflict_detection():
     assert "Conflict at 12:00" in conflicts[0]
 
 def test_status_filtering():
-    """Verify that filtering by completion state correctly groups items."""
+    """Verify that filtering by completion state correctly isolates tasks."""
     scheduler = Scheduler()
     t1 = Task(description="Task 1", duration="10m", priority="Low", time="09:00", is_completed=True)
     t2 = Task(description="Task 2", duration="10m", priority="Low", time="10:00", is_completed=False)
@@ -55,3 +55,14 @@ def test_status_filtering():
     assert completed_tasks[0].description == "Task 1"
     assert len(pending_tasks) == 1
     assert pending_tasks[0].description == "Task 2"
+
+def test_recurrence_logic():
+    """Verify that process_recurrence generates a clean copy of a Daily task for tomorrow."""
+    scheduler = Scheduler()
+    task = Task(description="Daily Feeding", duration="10 min", priority="High", time="07:00", frequency="Daily", is_completed=True)
+    
+    next_task = scheduler.process_recurrence(task)
+    assert next_task is not None
+    assert "Next Occurrence" in next_task.description
+    assert next_task.time == "07:00"
+    assert next_task.is_completed is False
